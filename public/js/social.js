@@ -257,11 +257,27 @@ if (articles != null) {
 }
 l_id_post = JSON.parse(localStorage.getItem("l_id_post"));
 
+
+//==================find id youtube=================
+function fil_ID(link) {
+    if (link.indexOf('https://www.youtube.com/watch?v') == 0) {
+        pos = link.indexOf('=');
+        id = link.substring(pos + 1)
+        if (pos != -1) return id;
+        else
+            return '-1';
+    }
+    return link
+}
 //=======================Create Post Article=================================================================================================
-function create_article(id, caption, link, img, name, avat) {
-    let ifr = '';
-    if (link != '')
-        ifr = ` <iframe width="760" height="343" src="${link}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+function create_article(id, caption, link_id, img, name, avat) {
+    let link = '';
+    if (link_id.indexOf('https://') == 0 && link_id.indexOf('https://www.youtube.com/watch?v') == -1)
+        link = `<a href="${link_id}">${link_id}</a>`
+    else
+    if (link_id != '-1' && link_id != '')
+        link = ` <iframe width="100%" height="600" src="https://www.youtube.com/embed/${link_id}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+
     let article_block = `
     <div class="article" id="${id}">
         <div class="article_top">
@@ -283,7 +299,7 @@ function create_article(id, caption, link, img, name, avat) {
                 <p>${caption}</p>
             </div>
             <div class="link">
-            ${ifr}
+                ${link}
             </div>
             <div class="file">
                 <img src="${img}" alt="">
@@ -377,7 +393,7 @@ post_buttton.addEventListener('click', (e) => {
         articles.push({
             '_id': createID(l_id_post, 'l_id_post', 10),
             '_caption': cap,
-            '_link': link,
+            '_link': fil_ID(link),
             '_img': img,
             '_name': NAME,
             '_avat': avatar,
