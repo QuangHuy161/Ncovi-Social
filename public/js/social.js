@@ -259,6 +259,9 @@ l_id_post = JSON.parse(localStorage.getItem("l_id_post"));
 
 //=======================Create Post Article=================================================================================================
 function create_article(id, caption, link, img, name, avat) {
+    let ifr = '';
+    if (link != '')
+        ifr = ` <iframe width="760" height="343" src="${link}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
     let article_block = `
     <div class="article" id="${id}">
         <div class="article_top">
@@ -280,7 +283,7 @@ function create_article(id, caption, link, img, name, avat) {
                 <p>${caption}</p>
             </div>
             <div class="link">
-                <a href="${link}">${link}</a>
+            ${ifr}
             </div>
             <div class="file">
                 <img src="${img}" alt="">
