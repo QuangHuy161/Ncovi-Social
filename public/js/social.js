@@ -72,14 +72,7 @@ let button_share_social = document.querySelectorAll('.article_bottom>.share');
 button_share_social.forEach((e, i) => {
     e.addEventListener('click', share)
 });
-//=======================Option setting==================================================================================================================================
 
-let list_ar = document.querySelectorAll(".article_top>.dot_icon");
-list_ar.forEach((el, i) => {
-    el.addEventListener('click', function() {
-        document.querySelectorAll('.choices')[i].classList.toggle('none')
-    })
-})
 
 //===========================POST=============================================================================================================================================
 let button_post = document.querySelector(".user_frame .buttons .button_post");
@@ -212,7 +205,6 @@ else
 
 const update_buttton = document.querySelector('.button_update');
 update_buttton.addEventListener('click', (e) => {
-    e.preventDefault()
     const inpObj = document.getElementById("6");
     if (!inpObj.checkValidity()) {
         alert(inpObj.validationMessage)
@@ -244,6 +236,13 @@ update_buttton.addEventListener('click', (e) => {
         });
         localStorage.setItem("Statuses", JSON.stringify(statuses));
     }
+    let left_srcreen = document.querySelectorAll('.left');
+    left_srcreen.forEach((e) => {
+        if (!e.classList.contains('none'))
+            e.classList.add('none');
+    })
+    left_srcreen[0].classList.remove('none')
+    window.location.reload(true);
 });
 
 //======================================List Post Article of ID ========================================================
@@ -363,7 +362,7 @@ function show_all_articles(list_articles) {
     for (const key of list_articles) {
         if (key !== null) {
             let article = create_article(key['_id'], key['_caption'], key['_link'], key['_img'], key['_name'], key['_avat'])
-            article_list_block.insertAdjacentHTML('beforeend', article);
+            article_list_block.insertAdjacentHTML('afterBegin', article);
         }
     }
 }
@@ -374,7 +373,6 @@ else
 
 const post_buttton = document.querySelector('.button_post');
 post_buttton.addEventListener('click', (e) => {
-    e.preventDefault()
     const inpObj = document.getElementById("ct");
     if (!inpObj.checkValidity()) {
         alert(inpObj.validationMessage)
@@ -401,4 +399,21 @@ post_buttton.addEventListener('click', (e) => {
         });
         localStorage.setItem("Articles", JSON.stringify(articles));
     }
+    let left_srcreen = document.querySelectorAll('.left');
+    left_srcreen.forEach((e) => {
+        if (!e.classList.contains('none'))
+            e.classList.add('none');
+    })
+    left_srcreen[0].classList.remove('none')
+    window.location.reload(true);
 });
+
+
+//=======================Option setting==================================================================================================================================
+
+let list_ar = document.querySelectorAll(".article_top>.dot_icon");
+list_ar.forEach((el, i) => {
+    el.addEventListener('click', function() {
+        document.querySelectorAll('.choices')[i].classList.toggle('none')
+    })
+})
